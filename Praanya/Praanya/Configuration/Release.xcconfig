@@ -1,0 +1,12 @@
+//
+//  Release.xcconfig
+//  Praanya
+//
+//  Created by Manikanta Nandam on 16/08/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+API_BASE_URL = https:/$()/firestore.googleapis.com/v1/projects/praanyainventory-prod/databases/(default)/documents
+API_KEY = your_production_api_key_here
