@@ -5,13 +5,10 @@ import AppKit
 #endif
 
 // MARK: - Main Public Login View
-/// A redesigned, configurable login screen that adapts for iOS and macOS.
 public struct SignInView<ImageView: View>: View {
     @ObservedObject var viewModel: AuthViewModel
     let imageView: () -> ImageView
     
-    // The initializer requires a ViewBuilder closure for the image,
-    // making it completely configurable from the outside.
     public init(viewModel: AuthViewModel, @ViewBuilder imageView: @escaping () -> ImageView) {
         self.viewModel = viewModel
         self.imageView = imageView
@@ -19,7 +16,8 @@ public struct SignInView<ImageView: View>: View {
     
     public var body: some View {
         GeometryReader { geometry in
-            // Use HStack for wider screens (macOS, iPad landscape)
+            // This is the key fix for adaptive layout.
+            // On wide screens, use a side-by-side layout.
             if geometry.size.width > 600 {
                 HStack(spacing: 0) {
                     imageView()
@@ -27,112 +25,112 @@ public struct SignInView<ImageView: View>: View {
                         .clipped()
                     
                     LoginForm(viewModel: viewModel)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.white)
                 }
-                .ignoresSafeArea()
             } else {
-                // Use VStack for narrower screens (iPhone)
-                ZStack {
-                    // On mobile, the image can act as a background
-                    imageView()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: geometry.size.height * 0.4)
-                        .ignoresSafeArea()
-                        .offset(y: -geometry.size.height * 0.2)
-                    
-                    ScrollView {
+                // On narrow screens (like iPhone), use a vertical layout.
+                ScrollView {
+                    // We use a ZStack to allow the form to potentially overlap the image if needed
+                    ZStack(alignment: .top) {
+                        // The image is placed at the top
+                        imageView()
+                            .frame(height: geometry.size.height * 0.35)
+                            .clipped()
+                        
+                        // The form is placed in a VStack below the image area
                         LoginForm(viewModel: viewModel)
-                            .padding(.top, geometry.size.height * 0.25)
+                            .padding(.top, geometry.size.height * 0.3)
+                            .background(Color.white)
                     }
                 }
+                .background(Color.white)
             }
         }
-        .background(Color.white)
+        .ignoresSafeArea()
+        .preferredColorScheme(.light)
     }
 }
 
 // MARK: - Login Form
-/// The right-hand side of the login screen.
 private struct LoginForm: View {
     @ObservedObject var viewModel: AuthViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(alignment: .center, spacing: 0) {
+            Spacer()
             
-            // 1. Logo
             Text("PRAANYA")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-                .kerning(8) // Adds spacing between letters
-                .padding(.vertical, 40)
+                .font(.system(size: 32, weight: .light, design: .default))
+                .kerning(10)
+                .foregroundColor(.black)
+                .padding(.bottom, 35)
             
-            // 2. Sub-headline
             Text("Log in below or sign up to create an account")
-                .foregroundColor(.gray)
-                .font(.subheadline)
+                .foregroundColor(Color(.systemGray))
+                .font(.system(size: 14))
+                .padding(.bottom, 25)
             
-            // 3. Social Login Buttons
-            HStack {
+            HStack(spacing: 15) {
                 SocialLoginButton(iconName: "g.circle.fill", text: "Google")
                 SocialLoginButton(iconName: "f.circle.fill", text: "Facebook")
             }
+            .padding(.bottom, 25)
             
-            // 4. Divider
-            HStack {
-                Rectangle().frame(height: 1).foregroundColor(.gray.opacity(0.2))
-                Text("or").foregroundColor(.gray)
-                Rectangle().frame(height: 1).foregroundColor(.gray.opacity(0.2))
+            HStack(spacing: 15) {
+                dividerLine()
+                Text("or").foregroundColor(Color(.systemGray))
+                dividerLine()
             }
-            .padding(.vertical)
+            .padding(.bottom, 25)
             
-            // 5. Text Fields
-            VStack {
-                AuthTextField(placeholder: "Username or email", text: $viewModel.email)
-                AuthSecureField(placeholder: "Password", text: $viewModel.password)
+            VStack(spacing: 15) {
+                StyledTextField(placeholder: "Username or email", text: $viewModel.email)
+                StyledSecureField(placeholder: "Password", text: $viewModel.password)
             }
+            .padding(.bottom, 25)
             
-            // 6. Login Button
             if viewModel.isLoading {
-                ProgressView()
+                ProgressView().frame(height: 50)
             } else {
                 Button(action: viewModel.signIn) {
                     Text("Log in")
-                        .font(.headline)
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding()
+                        .frame(height: 50)
                         .background(Color.black)
-                        .cornerRadius(12)
+                        .cornerRadius(10)
                 }
+                .buttonStyle(.plain)
             }
             
-            // 7. Forgot Password
             Button(action: viewModel.forgotPassword) {
                 Text("Forgot password?")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .font(.system(size: 14))
+                    .foregroundColor(Color(.systemGray))
             }
+            .buttonStyle(.plain)
+            .padding(.top, 15)
             
             Spacer()
-            
-            // 8. Sign Up Link
-            HStack {
-                Text("Don't have an account?")
-                NavigationLink(value: "SignUp") {
-                    // TODO: Add navigation to your sign up screen
-                    Text("Sign up")
-                }
-            }
-            .padding(.bottom)
-            
         }
-        .padding(.horizontal, 40)
-        .frame(maxWidth: 400) // Constrain form width on large screens
+        .padding(.horizontal, 50)
+        .frame(maxWidth: 420)
+    }
+    
+    // Helper view for the divider line
+    private func dividerLine() -> some View {
+        #if os(iOS)
+        return Rectangle().frame(height: 1).foregroundColor(Color(.systemGray5))
+        #else
+        return Rectangle().frame(height: 1).foregroundColor(Color(NSColor.gridColor))
+        #endif
     }
 }
 
 
-// MARK: - Reusable UI Components
+// MARK: - Reusable UI Components (Cross-Platform)
 
 private struct SocialLoginButton: View {
     let iconName: String
@@ -142,13 +140,68 @@ private struct SocialLoginButton: View {
         Button(action: {}) {
             HStack {
                 Image(systemName: iconName)
-                    .font(.title2)
+                    .font(.system(size: 20))
                 Text(text)
+                    .font(.system(size: 14, weight: .medium))
             }
             .foregroundColor(.black)
-            .padding()
             .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3)))
+            .frame(height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    #if os(iOS)
+                    .stroke(Color(.systemGray4))
+                    #else
+                    .stroke(Color(NSColor.separatorColor))
+                    #endif
+            )
         }
+        .buttonStyle(.plain)
+    }
+}
+
+private struct StyledTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    
+    var body: some View {
+        let field = TextField(placeholder, text: $text)
+            .font(.system(size: 14))
+            .padding(.horizontal, 15)
+            .frame(height: 50)
+            .cornerRadius(10)
+            .textFieldStyle(.plain)
+            .disableAutocorrection(true)
+
+        #if os(iOS)
+        field
+            .background(Color(.systemGray6))
+            .autocapitalization(.none)
+        #else
+        field
+            .background(Color(NSColor.controlBackgroundColor))
+        #endif
+    }
+}
+
+private struct StyledSecureField: View {
+    let placeholder: String
+    @Binding var text: String
+    
+    var body: some View {
+        let field = SecureField(placeholder, text: $text)
+            .font(.system(size: 14))
+            .padding(.horizontal, 15)
+            .frame(height: 50)
+            .cornerRadius(10)
+            .textFieldStyle(.plain)
+        
+        #if os(iOS)
+        field
+            .background(Color(.systemGray6))
+        #else
+        field
+            .background(Color(NSColor.controlBackgroundColor))
+        #endif
     }
 }

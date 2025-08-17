@@ -23,6 +23,7 @@ public struct AuthTextField: View {
             .padding(12)
             .cornerRadius(10)
             .disableAutocorrection(true)
+            .textFieldStyle(.plain)
 
         // Now, we apply platform-specific modifiers
         #if os(iOS)

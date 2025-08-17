@@ -20,6 +20,7 @@ public struct AuthSecureField: View {
         let secureField = SecureField(placeholder, text: $text)
             .padding()
             .cornerRadius(10)
+            .textFieldStyle(.plain)
 
         #if os(iOS)
         // This code is for iOS
