@@ -13,7 +13,7 @@ struct ContentView: View {
 
     // 1. Create the services and view model
     // This is where you inject your dependencies
-    private var authViewModel: AuthViewModel = {
+    @StateObject private var authViewModel: AuthViewModel = {
         let networkService = DefaultNetworkService()
         let authConfig = AuthConfig(
             apiKey: AppConfiguration.apiKey,

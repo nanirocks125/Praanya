@@ -46,6 +46,7 @@ public class AuthViewModel: ObservableObject {
     }
     
     public func signIn() {
+        print("Signing in")
         guard validateSignIn() else { return }
         
         performAuthAction { [weak self] in
@@ -53,6 +54,7 @@ public class AuthViewModel: ObservableObject {
             let request = AuthRequest(email: self.email, password: self.password)
             let _ = try await self.authService.signIn(with: request)
             self.userIsLoggedIn = true // Notify the app of successful login
+            print("Successful sign in")
         }
     }
     
