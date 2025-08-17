@@ -6,13 +6,15 @@ import NetworkManagement // Import your networking module
 
 // 1. Define the specific endpoint
 struct LoginEndpoint: Endpoint {
-    var baseURL: URL = URL(string: "https://identitytoolkit.googleapis.com/v1")! // Firebase Auth URL
+//    var baseURL: URL = URL(string: "https://identitytoolkit.googleapis.com/v1")! // Firebase Auth URL
+    var baseURL: URL
     var path: String = "/accounts:signInWithPassword"
     var method: HTTPMethod = .post
     var body: Encodable?
 
-    init(apiKey: String, body: LoginRequestBody) {
+    init(baseURL: URL, apiKey: String, body: LoginRequestBody) {
         // Firebase Auth REST API requires the API key as a query parameter
+        self.baseURL = baseURL
         self.path += "?key=\(apiKey)"
         self.body = body
     }
@@ -26,14 +28,21 @@ struct LoginRequestBody: Encodable {
 
 // 2. Use the NetworkService to make the call
 class AuthService {
-    private let networkService: NetworkService
+    private let networkService: NetworkServicing
+    private let config: AuthConfig
 
-    init(networkService: NetworkService) {
+    init(networkService: NetworkServicing,
+         config: AuthConfig) {
         self.networkService = networkService
+        self.config = config
     }
 
     func login(apiKey: String, credentials: LoginRequestBody) async throws -> LoginResponse {
-        let endpoint = LoginEndpoint(apiKey: apiKey, body: credentials)
+        let endpoint = LoginEndpoint(
+            baseURL: config.authBaseURL,
+            apiKey: config.apiKey,
+            body: credentials
+        )
         return try await networkService.request(endpoint: endpoint, as: LoginResponse.self)
     }
 }
