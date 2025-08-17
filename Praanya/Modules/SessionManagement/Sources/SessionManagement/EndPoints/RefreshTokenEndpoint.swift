@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  Authentication
+//  SessionManagement
 //
 //  Created by Manikanta Nandam on 17/08/25.
 //

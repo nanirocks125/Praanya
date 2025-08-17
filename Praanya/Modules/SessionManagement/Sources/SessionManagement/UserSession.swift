@@ -16,6 +16,14 @@ public struct UserSession: Codable, Sendable {
     public let expiresIn: TimeInterval // Store as TimeInterval for easier date calculations
     public let createdAt: Date
     
+    public init(uid: String, idToken: String, refreshToken: String, expiresIn: TimeInterval, createdAt: Date) {
+        self.uid = uid
+        self.idToken = idToken
+        self.refreshToken = refreshToken
+        self.expiresIn = expiresIn
+        self.createdAt = createdAt
+    }
+    
     /// Calculated property to determine if the ID token has expired.
     public var isExpired: Bool {
         // Add a 60-second buffer to be safe

@@ -19,21 +19,18 @@ public enum AuthError: Error {
 @MainActor
 public final class SessionManager: ObservableObject, Sendable {
     
-    /// The currently active user session. The UI will react to changes to this property.
     @Published public private(set) var currentSession: UserSession?
     
-    // Dependencies
     private let networkService: NetworkServicing
-    private let config: AuthConfig
+    private let apiKey: String
     
-    // Keychain configuration
     private let keychainService = "com.praanya.auth"
     private let keychainAccount = "userSession"
 
-    public init(networkService: NetworkServicing, config: AuthConfig) {
+    // ADD `public` to the initializer
+    public init(networkService: NetworkServicing, apiKey: String) {
         self.networkService = networkService
-        self.config = config
-        // Attempt to load a session from the Keychain upon initialization
+        self.apiKey = apiKey
         self.currentSession = loadSessionFromKeychain()
     }
     
@@ -71,7 +68,7 @@ public final class SessionManager: ObservableObject, Sendable {
         }
         
         let request = RefreshTokenRequest(grantType: "refresh_token", refreshToken: session.refreshToken)
-        let endpoint = RefreshTokenEndpoint(apiKey: config.apiKey, body: request)
+        let endpoint = RefreshTokenEndpoint(apiKey: apiKey, body: request)
         
         do {
             let response = try await networkService.request(endpoint: endpoint, as: RefreshTokenResponse.self)

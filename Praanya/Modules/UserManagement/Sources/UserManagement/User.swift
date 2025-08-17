@@ -29,6 +29,18 @@ public struct User: Codable, Identifiable {
 
     // You would use CodingKeys if your Firestore field names
     // are different from your struct property names.
+    public init(id: String, name: String, email: String, phone: String? = nil, imageURL: String? = nil, memberships: [String], createdAt: Date, updatedAt: Date, lastLoginAt: Date? = nil, status: UserStatus) {
+        self.id = id
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.imageURL = imageURL
+        self.memberships = memberships
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.lastLoginAt = lastLoginAt
+        self.status = status
+    }
 }
 
 public enum UserStatus: String, Codable {

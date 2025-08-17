@@ -15,7 +15,8 @@ let package = Package(
     dependencies: [
         // Add a dependency on the local NetworkManagement package
         .package(path: "../NetworkManagement"),
-        .package(path: "../SessionManagement")
+        .package(path: "../SessionManagement"),
+        .package(path: "../UserManagement")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -25,7 +26,8 @@ let package = Package(
             dependencies: [
                 // Specify that this target uses the NetworkManagement library
                 .product(name: "NetworkManagement", package: "NetworkManagement"),
-                .product(name: "SessionManagement", package: "SessionManagement")
+                .product(name: "SessionManagement", package: "SessionManagement"),
+                .product(name: "UserManagement", package: "UserManagement")
             ]
         ),
         .testTarget(

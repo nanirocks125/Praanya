@@ -8,6 +8,8 @@
 import SwiftUI
 import Authentication
 import NetworkManagement
+import SessionManagement
+import UserManagement
 
 struct ContentView: View {
 
@@ -26,11 +28,23 @@ struct ContentView: View {
         )
         
         // Initialize the SessionManager
-        let sm = SessionManager(networkService: networkService, config: authConfig)
+        let sm = SessionManager(networkService: networkService,
+                                apiKey: AppConfiguration.apiKey)
         _sessionManager = StateObject(wrappedValue: sm)
+        
+        let us = UserService(
+            networkService: networkService,
+            sessionManager: sm,
+            firestoreBaseURL: authConfig.authBaseURL
+        )
 
         // Initialize the AuthService with the SessionManager
-        let authService = AuthService(networkService: networkService, config: authConfig, sessionManager: sm)
+        let authService = AuthService(
+            networkService: networkService,
+            config: authConfig,
+            sessionManager: sm,
+            userService: us
+        )
         
         // Initialize the AuthViewModel with both dependencies
         _authViewModel = StateObject(wrappedValue: AuthViewModel(authService: authService, sessionManager: sm))

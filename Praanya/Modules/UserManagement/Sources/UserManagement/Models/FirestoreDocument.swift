@@ -31,7 +31,7 @@ enum FirestoreValue: Encodable {
         case .arrayValue(let value):
             try container.encode(["arrayValue": value])
         case .nullValue:
-            try container.encode(["nullValue": NSNull()])
+            try container.encode(["nullValue": Optional<String>.none])
         }
     }
 }

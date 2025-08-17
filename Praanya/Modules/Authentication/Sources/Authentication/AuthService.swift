@@ -44,6 +44,7 @@ public final class AuthService: Sendable {
         self.networkService = networkService
         self.config = config
         self.sessionManager = sessionManager
+        self.userService = userService
     }
 
     public func signUp(with details: AuthRequest) async throws {
@@ -69,7 +70,7 @@ public final class AuthService: Sendable {
                 email: response.email,
                 phone: nil,
                 imageURL: nil,
-                organizationMemberships: [],
+                memberships: [],
                 createdAt: Date(),
                 updatedAt: Date(),
                 status: .active

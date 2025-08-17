@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		53566EBB2E518D3400656FA2 /* Authentication in Frameworks */ = {isa = PBXBuildFile; productRef = 53566EBA2E518D3400656FA2 /* Authentication */; };
+		535BD6E72E51E7AA00E7E84C /* SessionManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 535BD6E62E51E7AA00E7E84C /* SessionManagement */; };
+		535BD6E92E51E7E200E7E84C /* UserManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 535BD6E82E51E7E200E7E84C /* UserManagement */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				535BD6E72E51E7AA00E7E84C /* SessionManagement in Frameworks */,
+				535BD6E92E51E7E200E7E84C /* UserManagement in Frameworks */,
 				53566EBB2E518D3400656FA2 /* Authentication in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +165,8 @@
 			name = Praanya;
 			packageProductDependencies = (
 				53566EBA2E518D3400656FA2 /* Authentication */,
+				535BD6E62E51E7AA00E7E84C /* SessionManagement */,
+				535BD6E82E51E7E200E7E84C /* UserManagement */,
 			);
 			productName = Praanya;
 			productReference = 538D74302E506003005FBC1E /* Praanya.app */;
@@ -653,6 +659,14 @@
 		53566EBA2E518D3400656FA2 /* Authentication */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Authentication;
+		};
+		535BD6E62E51E7AA00E7E84C /* SessionManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SessionManagement;
+		};
+		535BD6E82E51E7E200E7E84C /* UserManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserManagement;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
