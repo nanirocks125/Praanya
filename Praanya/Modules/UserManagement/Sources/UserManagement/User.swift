@@ -1,0 +1,38 @@
+//
+//  File.swift
+//  UserManagement
+//
+//  Created by Manikanta Nandam on 17/08/25.
+//
+
+import Foundation
+
+// This would live in your UserManagement package, likely in a Models folder.
+public struct User: Codable, Identifiable {
+    // Existing Properties
+    public let id: String // Corresponds to the Firebase Auth UID
+    public var name: String
+    public var email: String
+    public var phone: String?
+    public var imageURL: String?
+    public var memberships: [String] // Array of organization IDs
+
+    // --- Suggested New Properties ---
+
+    // Timestamps for auditing
+    public let createdAt: Date
+    public var updatedAt: Date
+    public var lastLoginAt: Date?
+
+    // Account status
+    public var status: UserStatus
+
+    // You would use CodingKeys if your Firestore field names
+    // are different from your struct property names.
+}
+
+public enum UserStatus: String, Codable {
+    case active
+    case inactive
+    case suspended
+}
