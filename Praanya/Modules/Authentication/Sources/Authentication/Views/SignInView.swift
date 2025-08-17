@@ -118,8 +118,9 @@ private struct LoginForm: View {
             // 8. Sign Up Link
             HStack {
                 Text("Don't have an account?")
-                Button("Sign up") {
+                NavigationLink(value: "SignUp") {
                     // TODO: Add navigation to your sign up screen
+                    Text("Sign up")
                 }
             }
             .padding(.bottom)
