@@ -30,36 +30,65 @@ struct LoginRequestBody: Encodable {
 public final class AuthService: Sendable {
     private let networkService: NetworkServicing
     private let config: AuthConfig
+    private let sessionManager: SessionManager // <-- Add dependency
 
-    public init(networkService: NetworkServicing,
-         config: AuthConfig) {
+    public init(
+        networkService: NetworkServicing,
+        config: AuthConfig,
+        sessionManager: SessionManager
+    ) {
         self.networkService = networkService
         self.config = config
+        self.sessionManager = sessionManager
     }
 
-    public func signUp(with details: AuthRequest) async throws -> AuthResponse {
+    public func signUp(with details: AuthRequest) async throws {
         let endpoint = SignUpEndpoint(
             baseURL: config.authBaseURL,
             apiKey: config.apiKey,
             body: details
         )
         print("Signingup with end point \(endpoint)")
-        return try await networkService.request(
+        let response = try await networkService.request(
             endpoint: endpoint,
             as: AuthResponse.self
         )
+        
+        // After successful signup, create and save the session
+        let session = UserSession(
+            uid: response.localId,
+            idToken: response.idToken,
+            refreshToken: response.refreshToken,
+            expiresIn: TimeInterval(response.expiresIn) ?? 3600,
+            createdAt: Date()
+        )
+        await sessionManager.saveSession(session)
     }
 
-        public func signIn(with details: AuthRequest) async throws -> AuthResponse {
+    public func signIn(with details: AuthRequest) async throws {
             let endpoint = SignInEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
-            return try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
+            let response = try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
+            
+            // After successful signin, create and save the session
+            let session = UserSession(
+                uid: response.localId,
+                idToken: response.idToken,
+                refreshToken: response.refreshToken,
+                expiresIn: TimeInterval(response.expiresIn) ?? 3600,
+                createdAt: Date()
+            )
+            await sessionManager.saveSession(session)
         }
 
-        public func forgotPassword(for email: String) async throws {
-            let body = PasswordResetRequest(email: email)
-            let endpoint = ForgotPasswordEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: body)
-            try await networkService.request(endpoint: endpoint)
-        }
+    public func forgotPassword(for email: String) async throws {
+        let body = PasswordResetRequest(email: email)
+        let endpoint = ForgotPasswordEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: body)
+        try await networkService.request(endpoint: endpoint)
+    }
+    
+    public func signOut() async {
+        await sessionManager.signOut()
+    }
 }
 
 // Define your expected response model

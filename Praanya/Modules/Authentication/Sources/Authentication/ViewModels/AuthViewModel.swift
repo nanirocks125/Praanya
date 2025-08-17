@@ -22,13 +22,18 @@ public class AuthViewModel: ObservableObject {
     
     // MARK: - Dependencies
     private let authService: AuthService
-    
+    private let sessionManager: SessionManager
+
     // MARK: - Public State
     // The main app can observe this to know when login is successful.
     @Published public var userIsLoggedIn = false
     
-    public init(authService: AuthService) {
+    public init(
+        authService: AuthService,
+        sessionManager: SessionManager
+    ) {
         self.authService = authService
+        self.sessionManager = sessionManager
     }
     
     // MARK: - Public Methods
@@ -68,6 +73,12 @@ public class AuthViewModel: ObservableObject {
             guard let self = self else { return }
             try await self.authService.forgotPassword(for: self.email)
             self.handleSuccess(message: "A password reset link has been sent to your email.")
+        }
+    }
+    
+    public func signOut() {
+        Task {
+            await authService.signOut()
         }
     }
     
