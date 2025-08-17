@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		53566EBB2E518D3400656FA2 /* Authentication in Frameworks */ = {isa = PBXBuildFile; productRef = 53566EBA2E518D3400656FA2 /* Authentication */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		538D743F2E506005005FBC1E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -71,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53566EBB2E518D3400656FA2 /* Authentication in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +158,7 @@
 			);
 			name = Praanya;
 			packageProductDependencies = (
+				53566EBA2E518D3400656FA2 /* Authentication */,
 			);
 			productName = Praanya;
 			productReference = 538D74302E506003005FBC1E /* Praanya.app */;
@@ -640,6 +646,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53566EBA2E518D3400656FA2 /* Authentication */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Authentication;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 538D74282E506003005FBC1E /* Project object */;
 }

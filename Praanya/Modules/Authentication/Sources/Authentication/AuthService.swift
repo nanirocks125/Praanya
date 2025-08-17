@@ -37,14 +37,21 @@ class AuthService {
         self.config = config
     }
 
-    func login(apiKey: String, credentials: LoginRequestBody) async throws -> LoginResponse {
-        let endpoint = LoginEndpoint(
-            baseURL: config.authBaseURL,
-            apiKey: config.apiKey,
-            body: credentials
-        )
-        return try await networkService.request(endpoint: endpoint, as: LoginResponse.self)
-    }
+    public func signUp(with details: AuthRequest) async throws -> AuthResponse {
+            let endpoint = SignUpEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
+            return try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
+        }
+
+        public func signIn(with details: AuthRequest) async throws -> AuthResponse {
+            let endpoint = SignInEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
+            return try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
+        }
+
+        public func forgotPassword(for email: String) async throws {
+            let body = PasswordResetRequest(email: email)
+            let endpoint = ForgotPasswordEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: body)
+            try await networkService.request(endpoint: endpoint)
+        }
 }
 
 // Define your expected response model
