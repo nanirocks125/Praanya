@@ -107,7 +107,9 @@ private struct LoginForm: View {
             
             // The NavigationLink will push to the ForgotPasswordView
             NavigationLink("Forgot password?") {
-                ForgotPasswordView(viewModel: viewModel)
+                ForgotPasswordView(viewModel: viewModel) {
+                    Color.gray
+                }
             }
             .buttonStyle(.plain)
             .font(.system(size: 14))

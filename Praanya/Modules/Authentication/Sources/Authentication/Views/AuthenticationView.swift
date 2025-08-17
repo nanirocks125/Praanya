@@ -35,7 +35,9 @@ public struct AuthenticationView: View {
                                 Color.gray
                             }
                         case "ForgotPassword":
-                            ForgotPasswordView(viewModel: viewModel)
+                            ForgotPasswordView(viewModel: viewModel) {
+                                Color.gray
+                            }
                         default:
                             EmptyView()
                         }
