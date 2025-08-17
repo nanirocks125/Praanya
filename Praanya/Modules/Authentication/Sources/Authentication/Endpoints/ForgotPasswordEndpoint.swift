@@ -19,6 +19,9 @@ struct ForgotPasswordEndpoint: Endpoint {
         self.body = body
     }
 
-    var path: String { "/v1/accounts:sendOobCode?key=\(apiKey)" }
+    var path: String { "/v1/accounts:sendOobCode" }
     var method: HTTPMethod { .post }
+    var queryItems: [URLQueryItem]? {
+        [URLQueryItem(name: "key", value: apiKey)]
+    }
 }

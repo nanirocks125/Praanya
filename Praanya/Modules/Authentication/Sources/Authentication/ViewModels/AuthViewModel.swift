@@ -12,9 +12,9 @@ import Foundation
 @MainActor
 public class AuthViewModel: ObservableObject {
     // MARK: - Published Properties
-    @Published public var email = ""
-    @Published public var password = ""
-    @Published public var confirmPassword = ""
+    @Published public var email = "nanirocks125@gmail.com"
+    @Published public var password = "Nandam@125"
+    @Published public var confirmPassword = "Nandam@125"
     
     @Published public var isLoading = false
     @Published public var alertMessage: String?
@@ -34,6 +34,7 @@ public class AuthViewModel: ObservableObject {
     // MARK: - Public Methods
     
     public func signUp() {
+        print("Signing up")
         guard validateSignUp() else { return }
         
         performAuthAction { [weak self] in
@@ -76,6 +77,7 @@ public class AuthViewModel: ObservableObject {
             do {
                 try await action()
             } catch {
+                print("Error while sign up \(error)")
                 handleError(message: error.localizedDescription)
             }
             isLoading = false

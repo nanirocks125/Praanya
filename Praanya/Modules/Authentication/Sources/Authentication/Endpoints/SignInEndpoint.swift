@@ -19,6 +19,9 @@ struct SignInEndpoint: Endpoint {
         self.body = body
     }
 
-    var path: String { "/v1/accounts:signInWithPassword?key=\(apiKey)" }
+    var path: String { "/v1/accounts:signInWithPassword" }
     var method: HTTPMethod { .post }
+    var queryItems: [URLQueryItem]? {
+        [URLQueryItem(name: "key", value: apiKey)]
+    }
 }

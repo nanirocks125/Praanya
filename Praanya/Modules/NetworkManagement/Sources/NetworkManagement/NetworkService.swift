@@ -51,7 +51,12 @@ public final class DefaultNetworkService: NetworkServicing {
     
     private func performRequest(for endpoint: Endpoint) async throws -> (Data, URLResponse) {
         // 1. Construct the URL
-        let url = endpoint.baseURL.appendingPathComponent(endpoint.path)
+        var components = URLComponents(url: endpoint.baseURL.appendingPathComponent(endpoint.path), resolvingAgainstBaseURL: true)
+        components?.queryItems = endpoint.queryItems
+        
+        guard let url = components?.url else {
+            throw NetworkError.invalidURL
+        }
         
         // 2. Create the URLRequest
         var request = URLRequest(url: url)
@@ -77,6 +82,7 @@ public final class DefaultNetworkService: NetworkServicing {
         let response: URLResponse
 
         do {
+            print("Performing request \(request)")
             // Correctly destructure the tuple into two constants
             (data, response) = try await session.data(for: request)
         } catch {

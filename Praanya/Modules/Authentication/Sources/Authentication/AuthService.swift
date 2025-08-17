@@ -38,9 +38,17 @@ public final class AuthService: Sendable {
     }
 
     public func signUp(with details: AuthRequest) async throws -> AuthResponse {
-            let endpoint = SignUpEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
-            return try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
-        }
+        let endpoint = SignUpEndpoint(
+            baseURL: config.authBaseURL,
+            apiKey: config.apiKey,
+            body: details
+        )
+        print("Signingup with end point \(endpoint)")
+        return try await networkService.request(
+            endpoint: endpoint,
+            as: AuthResponse.self
+        )
+    }
 
         public func signIn(with details: AuthRequest) async throws -> AuthResponse {
             let endpoint = SignInEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)

@@ -22,6 +22,10 @@ struct SignUpEndpoint: Endpoint {
         self.body = body
     }
 
-    var path: String { "/v1/accounts:signUp?key=\(apiKey)" }
+    var path: String { "/v1/accounts:signUp" } // Path no longer contains the key
     var method: HTTPMethod { .post }
+    // Use the new queryItems property
+    var queryItems: [URLQueryItem]? {
+        [URLQueryItem(name: "key", value: apiKey)]
+    }
 }
