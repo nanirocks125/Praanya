@@ -31,7 +31,7 @@ public final class DefaultNetworkService: NetworkServicing {
     }
 
     public func request<T: Decodable>(endpoint: Endpoint, as type: T.Type) async throws -> T {
-        let (data, response) = try await performRequest(for: endpoint)
+        let (data, _) = try await performRequest(for: endpoint)
         
         do {
             let decoder = JSONDecoder()
