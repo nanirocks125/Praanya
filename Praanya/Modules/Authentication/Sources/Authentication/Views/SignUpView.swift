@@ -17,7 +17,9 @@ public struct SignUpView: View {
                 .font(.largeTitle).bold()
             
             AuthTextField(placeholder: "Email", text: $viewModel.email)
+#if os(iOS)
                 .keyboardType(.emailAddress)
+#endif
             
             AuthSecureField(placeholder: "Password", text: $viewModel.password)
             AuthSecureField(placeholder: "Confirm Password", text: $viewModel.confirmPassword)

@@ -8,7 +8,7 @@
 import Foundation
 
 // Request body for password reset
-public struct PasswordResetRequest: Encodable {
+public struct PasswordResetRequest: Encodable, Sendable {
     let requestType: String = "PASSWORD_RESET"
     let email: String
 }

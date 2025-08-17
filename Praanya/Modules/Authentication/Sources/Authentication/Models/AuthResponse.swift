@@ -8,7 +8,7 @@
 import Foundation
 
 // Response from a successful sign-in or sign-up
-public struct AuthResponse: Decodable {
+public struct AuthResponse: Decodable, Sendable {
     public let idToken: String
     public let email: String
     public let refreshToken: String

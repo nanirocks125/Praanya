@@ -21,7 +21,9 @@ public struct ForgotPasswordView: View {
                 .foregroundColor(.secondary)
             
             AuthTextField(placeholder: "Email", text: $viewModel.email)
+#if os(iOS)
                 .keyboardType(.emailAddress)
+#endif
             
             if viewModel.isLoading {
                 ProgressView()

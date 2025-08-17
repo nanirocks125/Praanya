@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkManagement
 
 struct ForgotPasswordEndpoint: Endpoint {
     let baseURL: URL

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkManagement
 
 // MARK: - 2. Endpoints (Create in Endpoints folder)
 // Defines the specific REST API endpoints for Firebase Auth.

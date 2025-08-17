@@ -17,6 +17,32 @@ public enum NetworkError: Error, Equatable {
     case decodingError(Error)
     case encodingError(Error)
     case unknown
+    
+    // Add this function to your NetworkError.swift file
+
+    static public func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL):
+            return true
+        case (.requestFailed, .requestFailed):
+            // Note: We can't compare the associated Error types directly.
+            // For the purpose of Equatable, we'll consider two .requestFailed errors as equal.
+            return true
+        case (.invalidResponse, .invalidResponse):
+            return true
+        case let (.httpError(lhsCode, lhsData), .httpError(rhsCode, rhsData)):
+            return lhsCode == rhsCode && lhsData == rhsData
+        case (.decodingError, .decodingError):
+            return true
+        case (.encodingError, .encodingError):
+            return true
+        case (.unknown, .unknown):
+            return true
+        default:
+            // If the cases are different, they are not equal.
+            return false
+        }
+    }
 
     public var localizedDescription: String {
         switch self {

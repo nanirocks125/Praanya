@@ -5,7 +5,7 @@ import Foundation
 // MARK: - 4. Network Service Protocol
 /// The public interface for our networking layer.
 /// Other modules will depend on this protocol, not the concrete implementation.
-public protocol NetworkServicing {
+public protocol NetworkServicing: Sendable {
     /// Performs a network request and decodes the response.
     /// - Parameters:
     ///   - endpoint: The endpoint to be requested.
@@ -73,10 +73,12 @@ public final class DefaultNetworkService: NetworkServicing {
         }
         
         // 5. Perform the request
-        let data, response: (Data, URLResponse)
+        let data: Data
+        let response: URLResponse
+
         do {
-            data = try await session.data(for: request)
-            response = data
+            // Correctly destructure the tuple into two constants
+            (data, response) = try await session.data(for: request)
         } catch {
             throw NetworkError.requestFailed(error)
         }

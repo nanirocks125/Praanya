@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkManagement
 
 struct SignInEndpoint: Endpoint {
     let baseURL: URL

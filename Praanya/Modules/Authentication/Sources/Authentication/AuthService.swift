@@ -27,11 +27,11 @@ struct LoginRequestBody: Encodable {
 }
 
 // 2. Use the NetworkService to make the call
-class AuthService {
+public final class AuthService: Sendable {
     private let networkService: NetworkServicing
     private let config: AuthConfig
 
-    init(networkService: NetworkServicing,
+    public init(networkService: NetworkServicing,
          config: AuthConfig) {
         self.networkService = networkService
         self.config = config

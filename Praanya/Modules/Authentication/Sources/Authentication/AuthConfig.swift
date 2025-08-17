@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AuthConfig {
+public struct AuthConfig: Sendable {
     public let apiKey: String
     public let authBaseURL: URL
 
