@@ -326,6 +326,8 @@
 /* Begin XCBuildConfiguration section */
 		538D74502E506006005FBC1E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 538D74322E506003005FBC1E /* Praanya */;
+			baseConfigurationReferenceRelativePath = Configuration/Debug.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -388,6 +390,8 @@
 		};
 		538D74512E506006005FBC1E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 538D74322E506003005FBC1E /* Praanya */;
+			baseConfigurationReferenceRelativePath = Configuration/Release.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
