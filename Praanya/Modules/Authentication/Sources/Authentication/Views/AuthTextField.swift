@@ -20,7 +20,7 @@ public struct AuthTextField: View {
     public var body: some View {
         // We create the base TextField first
         let textField = TextField(placeholder, text: $text)
-            .padding()
+            .padding(12)
             .cornerRadius(10)
             .disableAutocorrection(true)
 
@@ -30,6 +30,7 @@ public struct AuthTextField: View {
         textField
             .background(Color(.systemGray6))
             .autocapitalization(.none)
+            .disableAutocorrection(true)
         #else
         // This code will ONLY be used when building for macOS
         textField

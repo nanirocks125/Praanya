@@ -19,8 +19,13 @@ public struct AuthenticationView: View {
     }
     
     public var body: some View {
-        NavigationView {
-            SignInView(viewModel: viewModel)
+        NavigationStack {
+            SignInView(viewModel: viewModel) {
+                Image("login-background") // <-- This is the configurable part
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .overlay(Color.black.opacity(0.2)) // Optional: add an overlay
+            }
         }
         .alert(isPresented: $viewModel.isShowingAlert) {
             Alert(title: Text("Authentication"), message: Text(viewModel.alertMessage ?? "An error occurred."), dismissButton: .default(Text("OK")))
