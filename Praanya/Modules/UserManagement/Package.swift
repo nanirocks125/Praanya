@@ -12,11 +12,19 @@ let package = Package(
             name: "UserManagement",
             targets: ["UserManagement"]),
     ],
+    dependencies: [
+        // Add a dependency on the local NetworkManagement package
+        .package(path: "../NetworkManagement")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "UserManagement"),
+            name: "UserManagement",
+            dependencies: [
+                // Specify that this target uses the NetworkManagement library
+                .product(name: "NetworkManagement", package: "NetworkManagement")            ]
+        ),
         .testTarget(
             name: "UserManagementTests",
             dependencies: ["UserManagement"]

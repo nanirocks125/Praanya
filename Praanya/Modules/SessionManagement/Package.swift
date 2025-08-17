@@ -4,33 +4,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "Authentication",
+    name: "SessionManagement",
     platforms: [.macOS(.v15), .iOS(.v18)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Authentication",
-            targets: ["Authentication"]),
+            name: "SessionManagement",
+            targets: ["SessionManagement"]),
     ],
     dependencies: [
         // Add a dependency on the local NetworkManagement package
-        .package(path: "../NetworkManagement"),
-        .package(path: "../SessionManagement")
-    ],
+        .package(path: "../NetworkManagement")    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Authentication",
+            name: "SessionManagement",
             dependencies: [
                 // Specify that this target uses the NetworkManagement library
-                .product(name: "NetworkManagement", package: "NetworkManagement"),
-                .product(name: "SessionManagement", package: "SessionManagement")
-            ]
+                .product(name: "NetworkManagement", package: "NetworkManagement")            ]
         ),
         .testTarget(
-            name: "AuthenticationTests",
-            dependencies: ["Authentication"]
+            name: "SessionManagementTests",
+            dependencies: ["SessionManagement"]
         ),
     ]
 )

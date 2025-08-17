@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SessionManagement
 
 // Manages the state and logic for the authentication views.
 

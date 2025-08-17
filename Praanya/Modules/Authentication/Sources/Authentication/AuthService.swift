@@ -2,7 +2,8 @@
 // https://docs.swift.org/swift-book
 
 import Foundation
-import NetworkManagement // Import your networking module
+import NetworkManagement
+import SessionManagement
 
 // 1. Define the specific endpoint
 struct LoginEndpoint: Endpoint {

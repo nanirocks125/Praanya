@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53566EC02E51DC9100656FA2 /* SessionManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SessionManagement; sourceTree = "<group>"; };
 		538D74302E506003005FBC1E /* Praanya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Praanya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D743E2E506005005FBC1E /* PraanyaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D74482E506005005FBC1E /* PraanyaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +129,7 @@
 		53F1F7D62E517B9F00624B94 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				53566EC02E51DC9100656FA2 /* SessionManagement */,
 				53F1F7DD2E517E1200624B94 /* AnalyticsManagement */,
 				53F1F7DC2E517DF000624B94 /* OrderManagement */,
 				53F1F7DB2E517D6A00624B94 /* NetworkManagement */,
