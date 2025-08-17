@@ -27,8 +27,12 @@
 		538D74302E506003005FBC1E /* Praanya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Praanya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D743E2E506005005FBC1E /* PraanyaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D74482E506005005FBC1E /* PraanyaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		538D74752E50634A005FBC1E /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = ../Core; sourceTree = SOURCE_ROOT; };
-		538D74762E506396005FBC1E /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = ../Features; sourceTree = SOURCE_ROOT; };
+		53F1F7D82E517CF300624B94 /* Authentication */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Authentication; sourceTree = "<group>"; };
+		53F1F7D92E517D2700624B94 /* UserManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserManagement; sourceTree = "<group>"; };
+		53F1F7DA2E517D4B00624B94 /* InventoryManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = InventoryManagement; sourceTree = "<group>"; };
+		53F1F7DB2E517D6A00624B94 /* NetworkManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkManagement; sourceTree = "<group>"; };
+		53F1F7DC2E517DF000624B94 /* OrderManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OrderManagement; sourceTree = "<group>"; };
+		53F1F7DD2E517E1200624B94 /* AnalyticsManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnalyticsManagement; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -90,7 +94,7 @@
 		538D74272E506003005FBC1E = {
 			isa = PBXGroup;
 			children = (
-				538D74742E5062ED005FBC1E /* Modules */,
+				53F1F7D62E517B9F00624B94 /* Modules */,
 				538D74322E506003005FBC1E /* Praanya */,
 				538D74412E506005005FBC1E /* PraanyaTests */,
 				538D744B2E506005005FBC1E /* PraanyaUITests */,
@@ -109,20 +113,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		538D74742E5062ED005FBC1E /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				538D74762E506396005FBC1E /* Features */,
-				538D74752E50634A005FBC1E /* Core */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
 		538D74772E5063CD005FBC1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53F1F7D62E517B9F00624B94 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				53F1F7DD2E517E1200624B94 /* AnalyticsManagement */,
+				53F1F7DC2E517DF000624B94 /* OrderManagement */,
+				53F1F7DB2E517D6A00624B94 /* NetworkManagement */,
+				53F1F7DA2E517D4B00624B94 /* InventoryManagement */,
+				53F1F7D92E517D2700624B94 /* UserManagement */,
+				53F1F7D82E517CF300624B94 /* Authentication */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
