@@ -12,11 +12,20 @@ let package = Package(
             name: "Authentication",
             targets: ["Authentication"]),
     ],
+    dependencies: [
+        // Add a dependency on the local NetworkManagement package
+        .package(path: "../NetworkManagement")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Authentication"),
+            name: "Authentication",
+            dependencies: [
+                // Specify that this target uses the NetworkManagement library
+                .product(name: "NetworkManagement", package: "NetworkManagement")
+            ]
+        ),
         .testTarget(
             name: "AuthenticationTests",
             dependencies: ["Authentication"]
