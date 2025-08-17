@@ -28,7 +28,7 @@ public final class UserService: Sendable {
             token: idToken,
             user: user
         )
-        
+        print("Final end point url is \(endpoint)")
         // We don't need to decode a response, just ensure the request succeeds.
         try await networkService.request(endpoint: endpoint)
         print("Successfully created user document for UID: \(user.id)")

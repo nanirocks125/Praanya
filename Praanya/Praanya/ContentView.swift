@@ -31,11 +31,11 @@ struct ContentView: View {
         let sm = SessionManager(networkService: networkService,
                                 apiKey: AppConfiguration.apiKey)
         _sessionManager = StateObject(wrappedValue: sm)
-        
+        print("base url \(AppConfiguration.apiBaseURL)")
         let us = UserService(
             networkService: networkService,
             sessionManager: sm,
-            firestoreBaseURL: authConfig.authBaseURL
+            firestoreBaseURL: AppConfiguration.apiBaseURL
         )
 
         // Initialize the AuthService with the SessionManager
