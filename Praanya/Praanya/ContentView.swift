@@ -30,7 +30,9 @@ struct ContentView: View {
             Text("Welcome to the Main App!")
         } else {
             // Show the authentication flow
-            AuthenticationView(viewModel: authViewModel)
+            AuthenticationFlowView(viewModel: authViewModel) {
+                Color.gray
+            }
         }
     }
 }
