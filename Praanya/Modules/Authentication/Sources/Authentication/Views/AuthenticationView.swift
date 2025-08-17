@@ -19,7 +19,10 @@ public struct AuthenticationFlowView<ImageView: View>: View {
     // The state that controls which form is shown on the right side.
     @State private var currentPage: AuthPage = .login
 
-    public init(viewModel: AuthViewModel, @ViewBuilder imageView: @escaping () -> ImageView) {
+    public init(
+        viewModel: AuthViewModel,
+        @ViewBuilder imageView: @escaping () -> ImageView
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.imageView = imageView
     }
@@ -55,7 +58,11 @@ public struct AuthenticationFlowView<ImageView: View>: View {
         .ignoresSafeArea()
         .preferredColorScheme(.light)
         .alert(isPresented: $viewModel.isShowingAlert) {
-            Alert(title: Text("Authentication"), message: Text(viewModel.alertMessage ?? "An error occurred."), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text("Authentication"),
+                message: Text(viewModel.alertMessage ?? "An error occurred."),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
     
@@ -73,8 +80,3 @@ public struct AuthenticationFlowView<ImageView: View>: View {
         }
     }
 }
-
-// MARK: - 3. Individual Forms (Updated)
-
-
-

@@ -8,9 +8,14 @@ public struct ForgotPasswordForm: View {
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
-            Text("RESET PASSWORD").kerning(4).font(.system(size: 32, weight: .light))
+            Text("RESET PASSWORD")
+                .kerning(4)
+                .font(.system(size: 32, weight: .light))
                 .padding(.bottom, 35)
-            Text("Enter your email to receive a password reset link").foregroundColor(Color(.systemGray)).font(.system(size: 14)).multilineTextAlignment(.center)
+            Text("Enter your email to receive a password reset link")
+                .foregroundColor(Color(.systemGray))
+                .font(.system(size: 14))
+                .multilineTextAlignment(.center)
                 .padding(.bottom, 25)
             VStack(spacing: 15) {
                 StyledTextField(placeholder: "Email", text: $viewModel.email)
@@ -18,16 +23,24 @@ public struct ForgotPasswordForm: View {
             
             if viewModel.isLoading { ProgressView().frame(height: 50) }
             else {
-                AuthActionButton(title: "Send Reset Link", action: viewModel.forgotPassword)
+                AuthActionButton(
+                    title: "Send Reset Link",
+                    action: viewModel.forgotPassword
+                )
             }
             
             Spacer()
             HStack {
-                Text("Remember your password?").foregroundColor(.black)
-                Button("Log in") { currentPage = .login }
-                    .buttonStyle(.plain)
+                Text("Remember your password?")
+                    .foregroundColor(.black)
+                Button("Log in") {
+                    currentPage = .login
+                }
+                .buttonStyle(.plain)
             }.padding(.bottom, 20)
         }
-        .padding(.horizontal, 50).frame(maxWidth: 420).background(Color.white)
+        .padding(.horizontal, 50)
+        .frame(maxWidth: 420)
+        .background(Color.white)
     }
 }
