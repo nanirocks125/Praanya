@@ -22,7 +22,8 @@ enum AppConfiguration {
     
     /// The base URL for the backend API, loaded from the active .xcconfig file.
     static var apiBaseURL: URL {
-        return URL(string: value(for: "ApiBaseURL"))!
+        let apiBaseURL = "https://\(value(for: "ApiBaseURL") as String)"
+        return URL(string: apiBaseURL)!
     }
     
     /// The API key for the backend service, loaded from the active .xcconfig file.

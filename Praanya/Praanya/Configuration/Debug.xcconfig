@@ -8,5 +8,5 @@
 // Configuration settings file format documentation can be found at:
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
-API_BASE_URL = https://firestore.googleapis.com/v1/projects/praanya-debug/databases/(default)/documents
+API_BASE_URL = firestore.googleapis.com/v1/projects/praanya-debug/databases/(default)/documents
 API_KEY = AIzaSyA7fuZ7OQX1l53mlfk7ylWCW0l-bYY6Uuk
