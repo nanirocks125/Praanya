@@ -4,6 +4,7 @@
 import Foundation
 import NetworkManagement
 import SessionManagement
+import UserManagement
 
 // 1. Define the specific endpoint
 struct LoginEndpoint: Endpoint {
@@ -32,11 +33,13 @@ public final class AuthService: Sendable {
     private let networkService: NetworkServicing
     private let config: AuthConfig
     private let sessionManager: SessionManager // <-- Add dependency
+    private let userService: UserService
 
     public init(
         networkService: NetworkServicing,
         config: AuthConfig,
-        sessionManager: SessionManager
+        sessionManager: SessionManager,
+        userService: UserService
     ) {
         self.networkService = networkService
         self.config = config
@@ -44,27 +47,36 @@ public final class AuthService: Sendable {
     }
 
     public func signUp(with details: AuthRequest) async throws {
-        let endpoint = SignUpEndpoint(
-            baseURL: config.authBaseURL,
-            apiKey: config.apiKey,
-            body: details
-        )
-        print("Signingup with end point \(endpoint)")
-        let response = try await networkService.request(
-            endpoint: endpoint,
-            as: AuthResponse.self
-        )
-        
-        // After successful signup, create and save the session
-        let session = UserSession(
-            uid: response.localId,
-            idToken: response.idToken,
-            refreshToken: response.refreshToken,
-            expiresIn: TimeInterval(response.expiresIn) ?? 3600,
-            createdAt: Date()
-        )
-        await sessionManager.saveSession(session)
-    }
+            // 1. First, create the user in Firebase Authentication
+            let endpoint = SignUpEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
+            let response = try await networkService.request(endpoint: endpoint, as: AuthResponse.self)
+            
+            // 2. Create the session for the newly created user
+            let session = UserSession(
+                uid: response.localId,
+                idToken: response.idToken,
+                refreshToken: response.refreshToken,
+                expiresIn: TimeInterval(response.expiresIn) ?? 3600,
+                createdAt: Date()
+            )
+            await sessionManager.saveSession(session)
+            
+            // 3. Now, create the corresponding user document in Firestore
+            // CORRECTED: The User object now exactly matches the model in the repository.
+            let newUser = User(
+                id: response.localId,
+                name: "New User", // Default name, can be updated later
+                email: response.email,
+                phone: nil,
+                imageURL: nil,
+                organizationMemberships: [],
+                createdAt: Date(),
+                updatedAt: Date(),
+                status: .active
+            )
+            
+            try await userService.createUser(newUser)
+        }
 
     public func signIn(with details: AuthRequest) async throws {
             let endpoint = SignInEndpoint(baseURL: config.authBaseURL, apiKey: config.apiKey, body: details)
