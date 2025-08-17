@@ -105,15 +105,29 @@ private struct LoginForm: View {
                 .buttonStyle(.plain)
             }
             
-            Button(action: viewModel.forgotPassword) {
-                Text("Forgot password?")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color(.systemGray))
+            // The NavigationLink will push to the ForgotPasswordView
+            NavigationLink("Forgot password?") {
+                ForgotPasswordView(viewModel: viewModel)
             }
             .buttonStyle(.plain)
+            .font(.system(size: 14))
+            .foregroundColor(Color(.systemGray))
             .padding(.top, 15)
             
             Spacer()
+
+            // This is the restored Sign Up button
+            HStack {
+                Text("Don't have an account?")
+                    .foregroundColor(.black)
+                
+                // The NavigationLink will push to the SignUpView
+                NavigationLink("Sign up") {
+                    SignUpView(viewModel: viewModel)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 50)
         .frame(maxWidth: 420)
