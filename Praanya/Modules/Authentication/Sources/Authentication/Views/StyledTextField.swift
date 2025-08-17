@@ -8,28 +8,31 @@
 import SwiftUI
 
 // Add this import at the top of the file if it's not there.
+// It's needed for NSColor on macOS.
 #if os(macOS)
 import AppKit
 #endif
 
-public struct AuthSecureField: View {
+public struct StyledTextField: View {
     let placeholder: String
     @Binding var text: String
-
+    
     public var body: some View {
-        let secureField = SecureField(placeholder, text: $text)
-            .padding()
+        let field = TextField(placeholder, text: $text)
+            .font(.system(size: 14))
+            .padding(.horizontal, 15)
+            .frame(height: 50)
             .cornerRadius(10)
             .textFieldStyle(.plain)
+            .disableAutocorrection(true)
 
         #if os(iOS)
-        // This code is for iOS
-        secureField
+        field
             .background(Color(.systemGray6))
+            .autocapitalization(.none)
         #else
-        // This code is for macOS
-        secureField
-            .background(Color(NSColor.windowBackgroundColor))
+        field
+            .background(Color(NSColor.controlBackgroundColor))
         #endif
     }
 }

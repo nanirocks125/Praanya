@@ -123,7 +123,9 @@ private struct LoginForm: View {
                 
                 // The NavigationLink will push to the SignUpView
                 NavigationLink("Sign up") {
-                    SignUpView(viewModel: viewModel)
+                    SignUpView(viewModel: viewModel) {
+                        Color.gray
+                    }
                 }
                 .buttonStyle(.plain)
             }
@@ -171,51 +173,5 @@ private struct SocialLoginButton: View {
             )
         }
         .buttonStyle(.plain)
-    }
-}
-
-private struct StyledTextField: View {
-    let placeholder: String
-    @Binding var text: String
-    
-    var body: some View {
-        let field = TextField(placeholder, text: $text)
-            .font(.system(size: 14))
-            .padding(.horizontal, 15)
-            .frame(height: 50)
-            .cornerRadius(10)
-            .textFieldStyle(.plain)
-            .disableAutocorrection(true)
-
-        #if os(iOS)
-        field
-            .background(Color(.systemGray6))
-            .autocapitalization(.none)
-        #else
-        field
-            .background(Color(NSColor.controlBackgroundColor))
-        #endif
-    }
-}
-
-private struct StyledSecureField: View {
-    let placeholder: String
-    @Binding var text: String
-    
-    var body: some View {
-        let field = SecureField(placeholder, text: $text)
-            .font(.system(size: 14))
-            .padding(.horizontal, 15)
-            .frame(height: 50)
-            .cornerRadius(10)
-            .textFieldStyle(.plain)
-        
-        #if os(iOS)
-        field
-            .background(Color(.systemGray6))
-        #else
-        field
-            .background(Color(NSColor.controlBackgroundColor))
-        #endif
     }
 }

@@ -31,7 +31,9 @@ public struct AuthenticationView: View {
         .navigationDestination(for: String.self) { route in
                         switch route {
                         case "SignUp":
-                            SignUpView(viewModel: viewModel)
+                            SignUpView(viewModel: viewModel) {
+                                Color.gray
+                            }
                         case "ForgotPassword":
                             ForgotPasswordView(viewModel: viewModel)
                         default:

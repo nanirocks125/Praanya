@@ -20,7 +20,7 @@ public struct ForgotPasswordView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
             
-            AuthTextField(placeholder: "Email", text: $viewModel.email)
+            StyledTextField(placeholder: "Email", text: $viewModel.email)
 #if os(iOS)
                 .keyboardType(.emailAddress)
 #endif
