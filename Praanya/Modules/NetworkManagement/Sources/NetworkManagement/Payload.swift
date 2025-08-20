@@ -8,21 +8,21 @@
 import Foundation
 
 // Helper structs to create a JSON body that conforms to the Firestore REST API format.
-public struct FirestoreDocument: Encodable {
-    let fields: [String: FirestoreValue]
+public struct Payload: Encodable {
+    let fields: [String: PayloadValue]
     
-    public init(fields: [String : FirestoreValue]) {
+    public init(fields: [String : PayloadValue]) {
         self.fields = fields
     }
 }
 
-public enum FirestoreValue: Encodable {
+public enum PayloadValue: Encodable {
     case stringValue(String)
     case integerValue(Int)
     case doubleValue(Double)
     case booleanValue(Bool)
     case timestampValue(String)
-    case arrayValue(FirestoreArray)
+    case arrayValue(PayloadArray)
     case nullValue
     
     public func encode(to encoder: Encoder) throws {
@@ -46,10 +46,10 @@ public enum FirestoreValue: Encodable {
     }
 }
 
-public struct FirestoreArray: Encodable {
-    let values: [FirestoreValue]
+public struct PayloadArray: Encodable {
+    let values: [PayloadValue]
     
-    public init(values: [FirestoreValue]) {
+    public init(values: [PayloadValue]) {
         self.values = values
     }
 }

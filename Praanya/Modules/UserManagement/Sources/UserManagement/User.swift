@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import NetworkManagement
 
 // This would live in your UserManagement package, likely in a Models folder.
-public struct User: Codable, Identifiable {
+public struct User: HttpCodable, Identifiable {
     // Existing Properties
     public let id: String // Corresponds to the Firebase Auth UID
     public var name: String

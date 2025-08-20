@@ -8,20 +8,20 @@
 import Foundation
 
 // A generic protocol for any model that can be converted to a Firestore document
-protocol FirestoreConvertible: Codable {
-    func toFirestoreDocument() -> FirestoreDocument
+public protocol HttpCodable: Codable {
+    func toFirestoreDocument() -> Payload
 }
 
 // A generic extension that provides a default implementation for the conversion
-extension FirestoreConvertible {
-    func toFirestoreDocument() -> FirestoreDocument {
+public extension HttpCodable {
+    func toFirestoreDocument() -> Payload {
         do {
             // Convert the Codable model into a dictionary
             let data = try JSONEncoder().encode(self)
             let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
             
             // Map the dictionary to Firestore-specific values
-            let fields: [String: FirestoreValue] = dictionary.compactMapValues {
+            let fields: [String: PayloadValue] = dictionary.compactMapValues {
                 // Handle different data types and return the correct Firestore Value
                 if let stringValue = $0 as? String {
                     return .stringValue(stringValue)
@@ -39,11 +39,11 @@ extension FirestoreConvertible {
                     return .nullValue
                 }
             }
-            return FirestoreDocument(fields: fields)
+            return Payload(fields: fields)
         } catch {
             print("Error encoding model to Firestore document: \(error)")
             // Return a default document in case of failure
-            return FirestoreDocument(fields: [:])
+            return Payload(fields: [:])
         }
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 import NetworkManagement
-import FirestoreServiceManagement
 
 /// Endpoint for creating a user document in Firestore.
 /// The document ID will be the user's UID.
@@ -25,20 +24,9 @@ struct CreateUserEndpoint: Endpoint {
     }
     
     var body: Encodable? {
-        let now = ISO8601DateFormatter().string(from: Date())
+//        let now = ISO8601DateFormatter().string(from: Date())
         
         // CORRECTED: The fields now exactly match the User model in the repository.
-        return FirestoreDocument(fields: [
-            "id": .stringValue(user.id),
-            "name": .stringValue(user.name),
-            "email": .stringValue(user.email),
-            "phone": user.phone != nil ? .stringValue(user.phone!) : .nullValue,
-            "imageURL": user.imageURL != nil ? .stringValue(user.imageURL!) : .nullValue,
-            "memberships": .arrayValue(.init(values: user.memberships.map { .stringValue($0) })),
-            "createdAt": .timestampValue(now),
-            "updatedAt": .timestampValue(now),
-            "lastLoginAt": .nullValue,
-            "status": .stringValue(user.status.rawValue)
-        ])
+        return user.toFirestoreDocument()
     }
 }
