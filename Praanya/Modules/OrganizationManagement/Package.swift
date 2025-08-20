@@ -4,38 +4,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "UserManagement",
-    platforms: [.macOS(.v15), .iOS(.v18)],
+    name: "OrganizationManagement",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "UserManagement",
-            targets: ["UserManagement"]),
+            name: "OrganizationManagement",
+            targets: ["OrganizationManagement"]),
     ],
     dependencies: [
         // Add a dependency on the local NetworkManagement package
         .package(path: "../NetworkManagement"),
-        .package(path: "../SessionManagement"),
-        .package(path: "../FirestoreServiceManagement")
+        .package(path: "../SessionManagement")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "UserManagement",
+            name: "OrganizationManagement",
             dependencies: [
                 // Specify that this target uses the NetworkManagement library
                 .product(name: "NetworkManagement",
                          package: "NetworkManagement"),
                 .product(name: "SessionManagement",
-                         package: "SessionManagement"),
-                .product(name: "FirestoreServiceManagement",
-                         package: "FirestoreServiceManagement")
+                         package: "SessionManagement")
             ]
         ),
         .testTarget(
-            name: "UserManagementTests",
-            dependencies: ["UserManagement"]
+            name: "OrganizationManagementTests",
+            dependencies: ["OrganizationManagement"]
         ),
     ]
 )

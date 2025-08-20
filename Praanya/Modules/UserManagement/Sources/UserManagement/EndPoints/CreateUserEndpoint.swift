@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkManagement
+import FirestoreServiceManagement
 
 /// Endpoint for creating a user document in Firestore.
 /// The document ID will be the user's UID.

@@ -34,6 +34,9 @@
 		538D74302E506003005FBC1E /* Praanya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Praanya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D743E2E506005005FBC1E /* PraanyaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		538D74482E506005005FBC1E /* PraanyaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PraanyaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53B5A83E2E53207B00F4E04B /* OrganizationManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OrganizationManagement; sourceTree = "<group>"; };
+		53B5A83F2E5320F000F4E04B /* FirestoreServiceManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FirestoreServiceManagement; sourceTree = "<group>"; };
+		53B5A8402E5328FA00F4E04B /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		53F1F7D82E517CF300624B94 /* Authentication */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Authentication; sourceTree = "<group>"; };
 		53F1F7D92E517D2700624B94 /* UserManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserManagement; sourceTree = "<group>"; };
 		53F1F7DA2E517D4B00624B94 /* InventoryManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = InventoryManagement; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 		53F1F7D62E517B9F00624B94 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				53B5A8402E5328FA00F4E04B /* Utilities */,
+				53B5A83F2E5320F000F4E04B /* FirestoreServiceManagement */,
 				53566EC02E51DC9100656FA2 /* SessionManagement */,
 				53F1F7DD2E517E1200624B94 /* AnalyticsManagement */,
 				53F1F7DC2E517DF000624B94 /* OrderManagement */,
@@ -140,6 +145,7 @@
 				53F1F7DA2E517D4B00624B94 /* InventoryManagement */,
 				53F1F7D92E517D2700624B94 /* UserManagement */,
 				53F1F7D82E517CF300624B94 /* Authentication */,
+				53B5A83E2E53207B00F4E04B /* OrganizationManagement */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
