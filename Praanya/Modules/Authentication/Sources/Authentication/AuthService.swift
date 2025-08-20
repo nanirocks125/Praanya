@@ -73,7 +73,8 @@ public final class AuthService: Sendable {
                 memberships: [],
                 createdAt: Date(),
                 updatedAt: Date(),
-                status: .active
+                status: .active,
+                role: .view
             )
             
             try await userService.createUser(newUser)

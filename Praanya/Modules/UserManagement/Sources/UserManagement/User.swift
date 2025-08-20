@@ -27,10 +27,11 @@ public struct User: HttpCodable, Identifiable {
 
     // Account status
     public var status: UserStatus
+    public var role: UserRole
 
     // You would use CodingKeys if your Firestore field names
     // are different from your struct property names.
-    public init(id: String, name: String, email: String, phone: String? = nil, imageURL: String? = nil, memberships: [String], createdAt: Date, updatedAt: Date, lastLoginAt: Date? = nil, status: UserStatus) {
+    public init(id: String, name: String, email: String, phone: String? = nil, imageURL: String? = nil, memberships: [String], createdAt: Date, updatedAt: Date, lastLoginAt: Date? = nil, status: UserStatus, role: UserRole) {
         self.id = id
         self.name = name
         self.email = email
@@ -41,6 +42,7 @@ public struct User: HttpCodable, Identifiable {
         self.updatedAt = updatedAt
         self.lastLoginAt = lastLoginAt
         self.status = status
+        self.role = role
     }
 }
 
@@ -48,4 +50,10 @@ public enum UserStatus: String, Codable {
     case active
     case inactive
     case suspended
+}
+
+public enum UserRole: String, Codable {
+    case admin
+    case editor
+    case view
 }
