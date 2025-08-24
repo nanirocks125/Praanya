@@ -18,6 +18,8 @@ struct ContentView: View {
     
     // 2. The AuthViewModel now also needs the SessionManager.
     @StateObject private var authViewModel: AuthViewModel
+    
+    @State var selectedTab: SidebarTab = .dashboard
 
     init() {
         // Create the core dependencies
@@ -54,13 +56,24 @@ struct ContentView: View {
         // 3. The view now switches based on the SessionManager's state
         if sessionManager.currentSession != nil {
             // Show your main app content here
-            VStack {
-                Text("Welcome! You are logged in.")
-                Text("User ID: \(sessionManager.currentSession!.uid)")
-                Button("Sign Out") {
-                    authViewModel.signOut()
+            HeaderView()
+            HStack {
+                SidebarView(selectedTab: $selectedTab)
+                switch selectedTab {
+                case .settings:
+                    SettingsView()
+                default:
+                    VStack {
+                        Text("Welcome! You are logged in.")
+                        Text("User ID: \(sessionManager.currentSession!.uid)")
+                        Button("Sign Out") {
+                            authViewModel.signOut()
+                        }
+                    }
                 }
+                Spacer()
             }
+
         } else {
             // Show the authentication flow
             AuthenticationFlowView(viewModel: authViewModel) {
