@@ -62,6 +62,7 @@ struct ContentView: View {
                 switch selectedTab {
                 case .settings:
                     SettingsView()
+                    Spacer()
                 default:
                     VStack {
                         Text("Welcome! You are logged in.")
