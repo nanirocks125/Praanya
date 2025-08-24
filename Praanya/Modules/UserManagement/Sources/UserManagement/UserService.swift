@@ -33,4 +33,23 @@ public final class UserService: Sendable {
         try await networkService.request(endpoint: endpoint)
         print("Successfully created user document for UID: \(user.id)")
     }
+    
+    public func fetchUser(_ userID: String) async throws {
+        // Get a valid ID token to authenticate the request
+        guard
+            let userID = await sessionManager.currentSession?.uid
+        else { return }
+        
+        let idToken = try await sessionManager.getValidIdToken()
+        
+        let endpoint = FetchUserEndpoint(
+            baseURL: firestoreBaseURL,
+            token: idToken,
+            userID: userID
+        )
+        print("Final end point url is \(endpoint)")
+        // We don't need to decode a response, just ensure the request succeeds.
+        try await networkService.request(endpoint: endpoint)
+        print("Successfully created user document for UID: \(userID)")
+    }
 }

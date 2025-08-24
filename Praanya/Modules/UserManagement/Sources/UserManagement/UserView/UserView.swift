@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-class ProfileViewModel: ObservableObject {
+public class ProfileViewModel: ObservableObject {
     // @Published properties will notify the View of any changes.
     @Published var accountID: String = ""
     @Published var mobileNumber: String = ""
@@ -16,15 +16,18 @@ class ProfileViewModel: ObservableObject {
     @Published var emailAddress: String = ""
 
     private var user: User
+    private let userService: UserService
 
-    init() {
+    init(userService: UserService) {
         // Initialize with a default user and fetch data.
+        self.userService = userService
         self.user = User(id: "", name: "", email: "", memberships: [], createdAt: Date(), updatedAt: Date(), status: .active, role: .view)
         fetchUserData()
     }
 
     // This function simulates fetching data from an API or database.
     func fetchUserData() {
+        
         // Populate the user model with data from the screenshot.
         self.user = User(id: "12ds", name: "s", email: "s", memberships: [], createdAt: Date(), updatedAt: Date(), status: .active, role: .view)
         
@@ -38,10 +41,10 @@ class ProfileViewModel: ObservableObject {
 
 public struct UserView: View {
     // Create and observe an instance of the ViewModel.
-    @StateObject private var viewModel = ProfileViewModel()
+    @ObservedObject private var viewModel: ProfileViewModel
     
-    public init() {
-        
+    public init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {
@@ -94,11 +97,6 @@ public struct UserView: View {
             .navigationTitle("Account Details")
         }
     }
-}
-
-
-#Preview {
-    UserView()
 }
 
 struct PhoneNumberField: View {

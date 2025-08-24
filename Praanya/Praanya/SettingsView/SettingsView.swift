@@ -11,7 +11,7 @@ import UserManagement
 struct SettingsView: View {
     var body: some View {
         VStack {
-            UserView()
+            UserView(viewModel: <#ProfileViewModel#>)
 
         }
     }
